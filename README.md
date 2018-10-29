@@ -1,4 +1,13 @@
-# Requirements
+# Description
+
+This is a Spring Boot app which manages users and their tasks.
+
+When a task is created it has an initial state of `PENDING`. 
+
+Every minute the job `UpdateTaskJob` updates all tasks marked as `Pending` to `DONE` where the current time is greater than the tasks' `date_time` field.
+
+
+## Requirements
 
 * [Docker](https://www.docker.com/)
 * Running MySQL instance with empty schema and valid credentials
@@ -14,23 +23,27 @@
 
 `./mvnw clean test`
 
-### Build Docker Image
+### Executable JAR
+
+`./mvnw clean package`
+
+### Docker Image
 
 `./docker-build.sh`
 
-#### Example Run
+## Example Run
 
 `docker container run --rm --net="host" -e "DB_USERNAME=root" -e "DB_PASSWORD=root" -e "DB_URL=jdbc:mysql://localhost:3306/manager" user-task-manager/manager`
 
 * `--net=host` connect to locally running db instance
 * `DB_USERNAME`, `DB_PASSWORD`, `DB_URL` are all required fields
  
-#### Run With Debug Logging
+#### Debug Logging
  
 set the active profile: `-e "spring.profiles.active=dev"`
 
-#### Set custom Port
- 
+#### Custom Port
+
 `-e "server.port=8082"`
 
 ## DB migration
