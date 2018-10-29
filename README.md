@@ -30,7 +30,13 @@ Every minute the job `UpdateTaskJob` updates all tasks marked as `Pending` to `D
 
 `./docker-build.sh`
 
-This builds a docker images tagged as `user-task-manager/manager:latest`
+This builds a docker image tagged as `user-task-manager/manager:latest`
+
+## DB migration
+
+Liquibase change file = `liquibase.sql`
+
+Note: it is required to run the liquibase `update` script before starting the application.
 
 ## Example Run
 
@@ -47,12 +53,6 @@ set the active profile: `-e "spring.profiles.active=dev"`
 
 `-e "server.port=8082"`
 
-## DB migration
-
-Liquibase change file = `liquibase.sql`
-
-Note: it is required to run the liquibase `update` script before starting the application.
-
 ### Validation and Exception Handling
 
 If a user or task cannot be found an `com.user.manager.api.exception.APIException` is thrown.
@@ -67,7 +67,7 @@ Required fields: `user_name`, `first_name`, `last_name`.
 
 #### Updating a User
 
-Required fields, at least one of: `user_name`, `first_name`, `last_name`.
+Required fields, at least one of: `first_name`, `last_name`. `user_name` is ignored.
 
 #### Creating a Task
 

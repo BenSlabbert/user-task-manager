@@ -41,14 +41,14 @@ public class UserApiValidator {
 
     User user = (User) pjp.getArgs()[0];
 
-    if (user.getUserName() == null && user.getFirstName() == null && user.getLastName() == null) {
+    if (user.getFirstName() == null && user.getLastName() == null) {
 
       LOG.warn("Bad update user object! All args empty!");
 
       return ResponseEntity.badRequest()
           .body(
               APIResponse.builder()
-                  .message("Must provide at least one field: user_name, first_name and last_name")
+                  .message("Must provide at least one field: first_name and last_name")
                   .build());
     }
 

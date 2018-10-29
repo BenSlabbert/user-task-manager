@@ -74,8 +74,7 @@ public class UserApiValidatorTest {
 
     assertEquals(400, resp.getStatusCodeValue());
     assertEquals(
-        "Must provide at least one field: user_name, first_name and last_name",
-        resp.getBody().getMessage());
+        "Must provide at least one field: first_name and last_name", resp.getBody().getMessage());
 
     verify(pjp, times(0)).proceed();
   }
@@ -83,7 +82,7 @@ public class UserApiValidatorTest {
   @Test
   public void updateUserValidator_validResponseTest() throws Throwable {
 
-    when(pjp.getArgs()).thenReturn(new Object[] {User.builder().userName("u1").build()});
+    when(pjp.getArgs()).thenReturn(new Object[] {User.builder().firstName("f1").build()});
 
     validator.updateUserValidator(pjp);
 
