@@ -35,9 +35,26 @@ public class UserApiValidatorTest {
   }
 
   @Test
-  public void createUserValidator_badResponseTest() throws Throwable {
+  public void createUserValidator_badResponseTest_missingFields_1() throws Throwable {
 
     when(pjp.getArgs()).thenReturn(new Object[] {new User()});
+
+    ResponseEntity<APIResponse> resp =
+        (ResponseEntity<APIResponse>) validator.createUserValidator(pjp);
+
+    assertNotNull(resp);
+
+    assertEquals(400, resp.getStatusCodeValue());
+    assertEquals("Must provide: user_name, first_name and last_name", resp.getBody().getMessage());
+
+    verify(pjp, times(0)).proceed();
+  }
+
+  @Test
+  public void createUserValidator_badResponseTest_missingFields_2() throws Throwable {
+
+    when(pjp.getArgs())
+        .thenReturn(new Object[] {User.builder().userName("u1").firstName("'f1").build()});
 
     ResponseEntity<APIResponse> resp =
         (ResponseEntity<APIResponse>) validator.createUserValidator(pjp);
@@ -63,9 +80,26 @@ public class UserApiValidatorTest {
   }
 
   @Test
-  public void updateUserValidator_badResponseTest() throws Throwable {
+  public void updateUserValidator_badResponseTest_missingFields_1() throws Throwable {
 
     when(pjp.getArgs()).thenReturn(new Object[] {new User()});
+
+    ResponseEntity<APIResponse> resp =
+        (ResponseEntity<APIResponse>) validator.updateUserValidator(pjp);
+
+    assertNotNull(resp);
+
+    assertEquals(400, resp.getStatusCodeValue());
+    assertEquals(
+        "Must provide at least one field: first_name and last_name", resp.getBody().getMessage());
+
+    verify(pjp, times(0)).proceed();
+  }
+
+  @Test
+  public void updateUserValidator_badResponseTest_missingFields_2() throws Throwable {
+
+    when(pjp.getArgs()).thenReturn(new Object[] {User.builder().userName("l1").build()});
 
     ResponseEntity<APIResponse> resp =
         (ResponseEntity<APIResponse>) validator.updateUserValidator(pjp);
@@ -90,9 +124,25 @@ public class UserApiValidatorTest {
   }
 
   @Test
-  public void createTaskValidator_badResponseTest() throws Throwable {
+  public void createTaskValidator_badResponseTest_missingFields_1() throws Throwable {
 
     when(pjp.getArgs()).thenReturn(new Object[] {new Task()});
+
+    ResponseEntity<APIResponse> resp =
+        (ResponseEntity<APIResponse>) validator.createTaskValidator(pjp);
+
+    assertNotNull(resp);
+
+    assertEquals(400, resp.getStatusCodeValue());
+    assertEquals("Must provide: name, description and date_time", resp.getBody().getMessage());
+
+    verify(pjp, times(0)).proceed();
+  }
+
+  @Test
+  public void createTaskValidator_badResponseTest_missingFields_2() throws Throwable {
+
+    when(pjp.getArgs()).thenReturn(new Object[] {Task.builder().name("n1").build()});
 
     ResponseEntity<APIResponse> resp =
         (ResponseEntity<APIResponse>) validator.createTaskValidator(pjp);
