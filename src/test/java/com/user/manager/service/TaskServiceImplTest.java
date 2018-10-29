@@ -81,9 +81,14 @@ public class TaskServiceImplTest {
 
     when(userService.getUser(1L)).thenReturn(user);
 
-    taskService.createTaskForUser(1L, task);
-
     user.getTasks().add(task);
+
+    when(userService.updateUser(user)).thenReturn(user);
+
+    Task createdTask = taskService.createTaskForUser(1L, task);
+
+    assertNotNull(createdTask);
+    assertSame(task, createdTask);
 
     verify(userService, times(1)).updateUser(user);
   }

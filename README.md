@@ -77,6 +77,12 @@ Required fields: `name`, `description`, `date_time`.
 
 Required field: `name`.
 
+## Postman
+
+* [Collection](https://www.getpostman.com/collections/8d7d771e3f118c92ac3a)
+
+* [Documentation](https://documenter.getpostman.com/view/1229795/RzZ1sNvt)
+
 ## Examples with cURL
 
 ### Create User

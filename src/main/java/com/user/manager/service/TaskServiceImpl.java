@@ -64,7 +64,7 @@ public class TaskServiceImpl implements TaskService {
   }
 
   @Override
-  public User createTaskForUser(long userId, Task task) {
+  public Task createTaskForUser(long userId, Task task) {
 
     LOG.debug("Adding task: {} to userId: {}", task, userId);
 
@@ -74,11 +74,15 @@ public class TaskServiceImpl implements TaskService {
 
     user.getTasks().add(task);
 
-    return userService.updateUser(user);
+    user = userService.updateUser(user);
+
+    List<Task> tasks = user.getTasks();
+
+    return tasks.get(tasks.size() - 1);
   }
 
   @Override
-  public User updateTaskForUser(long userId, long taskId, Task taskUpdates) {
+  public Task updateTaskForUser(long userId, long taskId, Task taskUpdates) {
 
     LOG.debug("Updating taskId: {} for userId: {} with task: {}", taskId, userId, taskUpdates);
 
@@ -88,7 +92,9 @@ public class TaskServiceImpl implements TaskService {
 
     task.setName(taskUpdates.getName());
 
-    return userService.updateUser(user);
+    userService.updateUser(user);
+
+    return task;
   }
 
   private Task getTask(long userId, long taskId, List<Task> tasks) {

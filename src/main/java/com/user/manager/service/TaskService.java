@@ -16,9 +16,9 @@ public interface TaskService {
 
   Task updateTask(Task task);
 
-  User createTaskForUser(long userId, Task task);
+  Task createTaskForUser(long userId, Task task);
 
-  User updateTaskForUser(long userId, long taskId, Task taskUpdates);
+  Task updateTaskForUser(long userId, long taskId, Task taskUpdates);
 
   User removeTaskForUser(long userId, long taskId);
 }
