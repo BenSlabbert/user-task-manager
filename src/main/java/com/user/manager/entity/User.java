@@ -1,5 +1,7 @@
 package com.user.manager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,14 +24,18 @@ public class User {
 
   @Version
   @Column(name = "version")
+  @JsonIgnore
   private Integer version;
 
+  @JsonProperty("username")
   @Column(name = "user_name")
   private String userName;
 
+  @JsonProperty("first_name")
   @Column(name = "first_name")
   private String firstName;
 
+  @JsonProperty("last_name")
   @Column(name = "last_name")
   private String lastName;
 

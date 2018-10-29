@@ -70,6 +70,8 @@ public class TaskServiceImpl implements TaskService {
 
     User user = userService.getUser(userId);
 
+    task.setStatus(TaskStatus.PENDING);
+
     user.getTasks().add(task);
 
     return userService.updateUser(user);

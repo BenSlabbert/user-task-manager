@@ -1,5 +1,8 @@
 package com.user.manager.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +25,7 @@ public class Task {
 
   @Version
   @Column(name = "version")
+  @JsonIgnore
   private Integer version;
 
   @Column(name = "name")
@@ -32,6 +36,8 @@ public class Task {
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "date_time")
+  @JsonProperty("date_time")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
   @Builder.Default
   private Date dateTime = new Date();
 

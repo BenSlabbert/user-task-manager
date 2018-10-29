@@ -36,7 +36,7 @@ public class UserAPI {
   @GetMapping(path = "/user", produces = JSON)
   public ResponseEntity<APIResponse> getAllUsers() {
 
-    LOG.debug("Getting all users");
+    LOG.debug("Get all users");
 
     return buildResponse(userService.getAllUsers());
   }
