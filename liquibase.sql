@@ -12,6 +12,9 @@ create table manager.user (
 )
   engine = InnoDB;
 
+alter table manager.user
+  add index pk_index (id);
+
 -- rollback drop table manager.user;
 
 -- changeset manager:2
@@ -26,6 +29,9 @@ create table manager.task (
   primary key (id)
 )
   engine = InnoDB;
+
+alter table manager.task
+  add index pk_index (id);
 
 -- rollback drop table manager.task;
 
