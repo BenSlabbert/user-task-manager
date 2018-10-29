@@ -64,17 +64,12 @@ public class UserServiceImpl implements UserService {
 
     LOG.debug("Updating userId: {}, updates: {}", id, updates);
 
-    Optional<User> user = userRepository.findById(id);
+    User user = getUser(id);
 
-    if (!user.isPresent()) {
-      LOG.warn("Unknown userId: {}", id);
-      throw new APIException("Failed to find user with id: " + id);
-    }
+    user.setFirstName(updates.getFirstName());
+    user.setLastName(updates.getLastName());
 
-    user.get().setFirstName(updates.getFirstName());
-    user.get().setLastName(updates.getLastName());
-
-    return userRepository.save(user.get());
+    return userRepository.save(user);
   }
 
   @Override

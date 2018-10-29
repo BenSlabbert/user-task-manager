@@ -4,8 +4,7 @@ This is a Spring Boot app which manages users and their tasks.
 
 When a task is created it has an initial state of `PENDING`. 
 
-Every minute the job `UpdateTaskJob` updates all tasks marked as `Pending` to `DONE` where the current time is greater than the tasks' `date_time` field.
-
+Every minute the job `UpdateTaskJob` updates all tasks marked as `Pending` to `DONE` where the current time is greater and equal to the tasks' `date_time` field.
 
 ## Requirements
 
@@ -31,6 +30,8 @@ Every minute the job `UpdateTaskJob` updates all tasks marked as `Pending` to `D
 
 `./docker-build.sh`
 
+This builds a docker images tagged as `user-task-manager/manager:latest`
+
 ## Example Run
 
 `docker container run --rm --net="host" -e "DB_USERNAME=root" -e "DB_PASSWORD=root" -e "DB_URL=jdbc:mysql://localhost:3306/manager" user-task-manager/manager`
@@ -51,6 +52,30 @@ set the active profile: `-e "spring.profiles.active=dev"`
 Liquibase change file = `liquibase.sql`
 
 Note: it is required to run the liquibase `update` script before starting the application.
+
+### Validation and Exception Handling
+
+If a user or task cannot be found an `com.user.manager.api.exception.APIException` is thrown.
+
+These exceptions are handled in: `com.user.manager.api.advice.ApiExceptionHandler`.
+
+Validation is handled in: `com.user.manager.api.validator.UserApiValidator`.
+
+#### Creating a User
+
+Required fields: `user_name`, `first_name`, `last_name`.
+
+#### Updating a User
+
+Required fields, at least one of: `user_name`, `first_name`, `last_name`.
+
+#### Creating a Task
+
+Required fields: `name`, `description`, `date_time`.
+
+#### Updating a Task
+
+Required field: `name`.
 
 ## Examples with cURL
 
